@@ -44,7 +44,7 @@ body{
   position:relative; min-height:72svh; display:grid; place-items:center; text-align:center; color:#fff;
   background:
     linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.8)),
-    url("/assets/background.jpeg") center/cover no-repeat fixed;
+    url("assets/background.jpeg") center/cover no-repeat fixed;
 }
 .hero-inner{padding:200px 20px 72px}
 .hero h1{font-size:clamp(32px,6vw,64px); margin:0 0 10px}
