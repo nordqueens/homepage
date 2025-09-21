@@ -1,20 +1,29 @@
-// News: Karten -> Modal
-document.querySelectorAll('.news-card').forEach(card => {
-  card.addEventListener('click', () => {
+const body = document.body;
+document.querySelectorAll('.news-card').forEach(card=>{
+  card.addEventListener('click', ()=>{
     const id = card.getAttribute('data-modal');
     const modal = document.getElementById(id);
-    if (!modal) return;
+    if(!modal) return;
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
-    // ESC schließen
-    const onKey = (e) => { if (e.key === 'Escape') close(); };
-    const close = () => {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-      document.removeEventListener('keydown', onKey);
-    };
-    modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close, { once:true }));
-    document.addEventListener('keydown', onKey);
+    body.style.overflow = 'hidden'; // Hintergrund fixieren
+  });
+});
+
+document.querySelectorAll('.modal').forEach(modal=>{
+  const closeModal = ()=>{
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    body.style.overflow = ''; // Scroll wieder erlauben
+  };
+  modal.querySelectorAll('[data-close], .modal-close').forEach(btn=>{
+    btn.addEventListener('click', closeModal);
+  });
+  modal.addEventListener('click', e=>{
+    if(e.target.classList.contains('modal-backdrop')) closeModal();
+  });
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
 });
 
